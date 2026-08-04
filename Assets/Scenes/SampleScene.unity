@@ -182,10 +182,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 231557227680925895, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 242711042}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
 --- !u!1 &108634373
 GameObject:
@@ -297,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8366532ef09c57c4a8976fd91c21ecac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AreaRevealTrigger
-  cameraTarget: {fileID: 772115828}
+  cameraTarget: {fileID: 0}
 --- !u!1 &238683295
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9ea2878fbe1794f94f9a89561164ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraTrigger
-  cameraTarget: {fileID: 772115828}
+  cameraTarget: {fileID: 0}
   roomCenter: {fileID: 108634374}
 --- !u!65 &238683298
 BoxCollider:
@@ -367,32 +364,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.357309, y: 1.60391, z: 1}
   m_Center: {x: -0.31125855, y: 0.30195498, z: 0}
---- !u!1 &242711041 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 231557227680925895, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
-  m_PrefabInstance: {fileID: 52756569}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &242711042
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 242711041}
-  m_Material: {fileID: 13400000, guid: b7c7aaf106cc8cf448bafb863fdc15f8, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.8692167, y: 0.38027897, z: 1.7435259}
-  m_Center: {x: 0, y: -0.073719524, z: 0.00043580518}
 --- !u!4 &242711045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 611777885181104765, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
@@ -1125,8 +1096,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.8692167, y: 0.38027897, z: 1.7435259}
-  m_Center: {x: 0, y: -0.073719524, z: 0.00043580518}
+  m_Size: {x: 11.110259, y: 0.38027897, z: 1.7435259}
+  m_Center: {x: 4.1205206, y: -0.073719524, z: 0.00043580518}
 --- !u!1 &702014418
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,7 +1293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 772115826}
-  - component: {fileID: 772115828}
+  - component: {fileID: 772115827}
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -1345,7 +1316,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1664508182}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &772115828
+--- !u!114 &772115827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1360,7 +1331,7 @@ MonoBehaviour:
   player: {fileID: 356855975}
   playerMovement: {fileID: 356855980}
   xSmoothTime: 0.25
-  ySmoothTime: 0.3
+  ySmoothTime: 0.08
 --- !u!1 &796893286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,37 +2416,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 231557227680925895, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1531265831}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
---- !u!1 &1531265830 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 231557227680925895, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
-  m_PrefabInstance: {fileID: 1531265829}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1531265831
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531265830}
-  m_Material: {fileID: 13400000, guid: b7c7aaf106cc8cf448bafb863fdc15f8, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.8692167, y: 0.38027897, z: 1.7435259}
-  m_Center: {x: 0, y: -0.073719524, z: 0.00043580518}
 --- !u!4 &1531265834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 611777885181104765, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
@@ -2544,10 +2486,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 231557227680925895, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1752616316}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
 --- !u!1 &1623351660
 GameObject:
@@ -2711,34 +2650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6ecb5fe05ea814c9a2b6719dd330f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LedgeTrigger
-  cameraTarget: {fileID: 772115828}
+  cameraTarget: {fileID: 0}
   lookDownOffset: -1.2
---- !u!1 &1752616315 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 231557227680925895, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
-  m_PrefabInstance: {fileID: 1555760782}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1752616316
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752616315}
-  m_Material: {fileID: 13400000, guid: b7c7aaf106cc8cf448bafb863fdc15f8, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.8692167, y: 0.38027897, z: 1.7435259}
-  m_Center: {x: 0, y: -0.073719524, z: 0.00043580518}
 --- !u!4 &1752616319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 611777885181104765, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}
@@ -2837,13 +2750,13 @@ MonoBehaviour:
   Composition:
     ScreenPosition: {x: 0.01999998, y: 0.31}
     DeadZone:
-      Enabled: 0
+      Enabled: 1
       Size: {x: 0, y: 0.29}
     HardLimits:
       Enabled: 0
       Size: {x: 0.3, y: 0.49}
       Offset: {x: -1, y: 0}
-  CenterOnActivate: 1
+  CenterOnActivate: 0
   TargetOffset: {x: 0, y: 0, z: 0}
   Damping: {x: 0, y: 1.5, z: 0}
   Lookahead:
