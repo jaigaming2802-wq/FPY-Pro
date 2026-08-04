@@ -5,12 +5,7 @@ public class CameraTarget : MonoBehaviour
     [Header("References")]
     public Transform player;
     public PlayerMovement playerMovement;
-    public SpriteRenderer playerSprite;
-
-    [Header("Direction Bias")]
-    public float idleOffset = 0.25f;
-    public float runOffset = 0f;
-
+   
     [Header("Smooth")]
     public float xSmoothTime = 0.25f;
     public float ySmoothTime = 0.08f;
@@ -82,16 +77,7 @@ public class CameraTarget : MonoBehaviour
             return;
         }
 
-        //=========================================
-        // Direction Bias
-        //=========================================
-
-        float offset = playerMovement.IsMoving ? runOffset : idleOffset;
-
-        if (playerSprite.flipX)
-            offset = -offset;
-
-        float targetX = player.position.x + offset;
+        float targetX = player.position.x;
 
         currentX = Mathf.SmoothDamp(
             currentX,

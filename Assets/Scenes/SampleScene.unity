@@ -1284,9 +1284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTarget
   player: {fileID: 356855975}
   playerMovement: {fileID: 356855980}
-  playerSprite: {fileID: 356855974}
-  idleOffset: 0.25
-  runOffset: 0
   xSmoothTime: 0.25
   ySmoothTime: 0.3
 --- !u!1 &796893286
@@ -2625,7 +2622,7 @@ MonoBehaviour:
     ScreenPosition: {x: 0, y: 0.19}
     DeadZone:
       Enabled: 1
-      Size: {x: 0.2, y: 0.26}
+      Size: {x: 0.15, y: 0.26}
     HardLimits:
       Enabled: 0
       Size: {x: 0.2, y: 0.26}
