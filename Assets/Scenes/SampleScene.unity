@@ -428,7 +428,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8091365, y: 1.4159904, z: -10.67}
+  m_LocalPosition: {x: -1.8091365, y: 1.1635487, z: -10.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -716,7 +716,7 @@ Transform:
   m_GameObject: {fileID: 356855973}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.69, y: 0.572, z: -7.33}
+  m_LocalPosition: {x: -1.56, y: 0.572, z: -7.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -785,7 +785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7536ff793d4a542bdd18d7767b95d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 3
+  moveSpeed: 2.8
   knockbackForce: 1.7
   knockbackHeight: 2.8
   knockbackDuration: 0.15
@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666854218d60c14b80348dbfa149cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDash
-  dashSpeed: 15
+  dashSpeed: 10
   dashDuration: 0.2
   dashCooldown: 0.5
 --- !u!114 &356855983
@@ -850,9 +850,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebb3fdafa06520479e04493b4e13f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerJump
-  jumpForce: 5
+  jumpForce: 4
   lowJumpMultiplier: 0
-  fallMultiplier: 0.8
+  fallMultiplier: 0.6
   groundCheck: {fileID: 1623351661}
   groundRadius: 0.2
   groundLayer:
@@ -1265,6 +1265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 772115826}
   - component: {fileID: 772115827}
+  - component: {fileID: 772115828}
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -1300,6 +1301,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTarget
   player: {fileID: 356855975}
+  ySmoothTime: 0.3
+--- !u!114 &772115828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772115825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d5a67673287674096a7733be5f2016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraJumpFall
+  cameraTarget: {fileID: 772115827}
+  player: {fileID: 356855980}
+  jumpOffset: 0.2
+  fallOffset: -0.8
+  jumpThreshold: 1.2
+  fallThreshold: -1
+  offsetSmooth: 4
 --- !u!1 &796893286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,7 +2701,7 @@ Transform:
   m_GameObject: {fileID: 1782598787}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.46369648, y: 1.4159904, z: -1.89462}
+  m_LocalPosition: {x: -0.46369648, y: 1.1635487, z: -1.89462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2701,17 +2722,17 @@ MonoBehaviour:
   CameraDistance: 3.34
   DeadZoneDepth: 0
   Composition:
-    ScreenPosition: {x: 0.01999998, y: 0.31}
+    ScreenPosition: {x: 0.01863957, y: 0.2374048}
     DeadZone:
       Enabled: 1
-      Size: {x: 0.19, y: 0}
+      Size: {x: 0.1174831, y: 0}
     HardLimits:
       Enabled: 0
       Size: {x: 2, y: 0.49}
       Offset: {x: -1, y: 0}
   CenterOnActivate: 0
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.3, y: 0, z: 0}
+  Damping: {x: 0.4, y: 0, z: 0}
   Lookahead:
     Enabled: 0
     Time: 0.05
