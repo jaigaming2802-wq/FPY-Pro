@@ -12,8 +12,17 @@ public class CameraTarget : MonoBehaviour
 
     private float currentY;
     private float yVelocity;
-
     private float currentYOffset;
+
+    // Camera Lock
+    private bool cameraLocked;
+    private Vector3 lockedPosition;
+
+    private bool roomLocked;
+    private Vector3 roomLockPosition;
+    [SerializeField] private float roomLockSmoothTime = 0.4f;
+
+    private Vector3 roomVelocity;
 
     private void Start()
     {
@@ -25,6 +34,22 @@ public class CameraTarget : MonoBehaviour
         if (player == null || playerMovement == null)
             return;
 
+        // Camera Lock
+        if (cameraLocked)
+        {
+            transform.position = lockedPosition;
+            return;
+        }
+        if (roomLocked)
+        {
+            transform.position = Vector3.SmoothDamp(
+                transform.position,
+                roomLockPosition,
+                ref roomVelocity,
+                roomLockSmoothTime);
+
+            return;
+        }
         float targetY = player.position.y + currentYOffset;
 
         float smoothTime = playerMovement.LockJumpFallCamera
@@ -46,5 +71,25 @@ public class CameraTarget : MonoBehaviour
     public void SetYOffset(float offset)
     {
         currentYOffset = offset;
+    }
+
+    public void SetCameraLock(bool value)
+    {
+        cameraLocked = value;
+
+        if (value)
+        {
+            lockedPosition = transform.position;
+        }
+    }
+    public void LockCamera(Vector3 position)
+    {
+        roomLocked = true;
+        roomLockPosition = position;
+    }
+
+    public void UnlockCamera()
+    {
+        roomLocked = false;
     }
 }
