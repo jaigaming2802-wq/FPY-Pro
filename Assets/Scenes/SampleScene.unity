@@ -1301,7 +1301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTarget
   player: {fileID: 356855975}
+  playerMovement: {fileID: 356855980}
   ySmoothTime: 0.3
+  ledgeSmoothTime: 0.5
 --- !u!114 &772115828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2583,6 +2585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1722932114}
   - component: {fileID: 1722932115}
+  - component: {fileID: 1722932116}
   m_Layer: 0
   m_Name: Ledge1
   m_TagString: Untagged
@@ -2626,6 +2629,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.422203, y: 0.73026013, z: 1}
   m_Center: {x: 0.7111014, y: -0.13486993, z: 0}
+--- !u!114 &1722932116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722932113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6ecb5fe05ea814c9a2b6719dd330f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LedgeTrigger
+  cameraTarget: {fileID: 772115827}
+  ledgeOffset: -1
 --- !u!4 &1752616319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 611777885181104765, guid: 90a941dddc96ee64bb3179ee113520da, type: 3}

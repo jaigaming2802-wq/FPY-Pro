@@ -47,6 +47,35 @@ public class CameraJumpFall : MonoBehaviour
             targetOffset,
             offsetSmooth * Time.deltaTime);
 
+        
+
+        if (player.LockJumpFallCamera)
+        {
+            return; // Ledge camera dhaan control pannum
+        }
+
+        // Ground
+        if (player.IsGrounded)
+        {
+            targetOffset = 0f;
+        }
+        // Jump
+        else if (player.GetVerticalVelocity() > jumpThreshold)
+        {
+            targetOffset = jumpOffset;
+        }
+        // Fall
+        else if (player.GetVerticalVelocity() < fallThreshold)
+        {
+            targetOffset = fallOffset;
+        }
+
+        currentOffset = Mathf.Lerp(
+            currentOffset,
+            targetOffset,
+            offsetSmooth * Time.deltaTime);
+
         cameraTarget.SetYOffset(currentOffset);
+
     }
 }

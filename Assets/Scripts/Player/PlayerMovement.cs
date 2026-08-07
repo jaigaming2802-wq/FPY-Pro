@@ -27,18 +27,13 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStateMachine stateMachine;
     public PlayerStateMachine StateMachine => stateMachine;
 
-
     public Rigidbody RB => rb;
 
-
     public Vector2 MoveInput { get; private set; }
-
 
     public PlayerJump PlayerJump { get; private set; }
     public PlayerDash PlayerDash { get; private set; }
 
-
-    // Inputs
     public bool JumpPressed { get; private set; }
     public bool JumpReleased { get; private set; }
     public bool DashPressed { get; private set; }
@@ -50,10 +45,8 @@ public class PlayerMovement : MonoBehaviour
     public bool Attack1Pressed { get; private set; }
     public bool Attack2Pressed { get; private set; }
 
-
     public bool BlockPressed { get; private set; }
     public bool BlockHeld { get; private set; }
-
 
     public PlayerHealth PlayerHealth { get; private set; }
 
@@ -62,8 +55,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsMoving =>
         Mathf.Abs(MoveInput.x) > 0.1f;
+    public bool IsInLedgeTrigger { get; set; }
 
-
+    public bool LockJumpFallCamera { get; set; }
 
     private void Awake()
     {
