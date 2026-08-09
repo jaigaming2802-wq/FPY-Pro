@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     public EnemyStateMachine StateMachine { get; private set; }
 
     public EnemyHitFlash EnemyHitFlash { get; private set; }
+    public CameraShake CameraShake { get; private set; }
 
     private void Awake()
     {
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour
         {
             PlayerJump = player.GetComponent<PlayerJump>();
         }
+        CameraShake = FindFirstObjectByType<CameraShake>();
 
         StateMachine = new EnemyStateMachine();
     }

@@ -47,9 +47,16 @@ public class EnemyHealth : MonoBehaviour
         //
         // This is separate from the existing
         // white flash inside the Hurt animation.
+        // HIT FLASH
         if (enemy.EnemyHitFlash != null)
         {
             enemy.EnemyHitFlash.PlayHitFlash();
+        }
+
+        // CAMERA SHAKE
+        if (enemy.CameraShake != null)
+        {
+            enemy.CameraShake.EnemyHit();
         }
 
 

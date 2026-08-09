@@ -183,8 +183,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Knockback system is currently disabled.
-        // HandleKnockback();
+        if (float.IsInfinity(rb.linearVelocity.y) ||
+            float.IsNaN(rb.linearVelocity.y))
+        {
+            Debug.LogError(
+                "🚨 INVALID Y VELOCITY FOUND: " +
+                rb.linearVelocity
+            );
+        }
 
         stateMachine.FixedUpdate();
     }
@@ -192,14 +198,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
-        // Normal movement is allowed because
-        // knockback is currently disabled.
+        float verticalVelocity = rb.linearVelocity.y;
+
+        if (float.IsNaN(verticalVelocity) ||
+            float.IsInfinity(verticalVelocity))
+        {
+            Debug.LogError(
+                "Invalid Y velocity detected. Resetting to 0."
+            );
+
+            verticalVelocity = 0f;
+        }
 
         rb.linearVelocity = new Vector3(
             MoveInput.x * moveSpeed,
-            rb.linearVelocity.y,
-            0f);
-
+            verticalVelocity,
+            0f
+        );
 
         Flip();
     }
