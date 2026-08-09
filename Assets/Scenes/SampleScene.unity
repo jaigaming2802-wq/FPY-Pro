@@ -1093,7 +1093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &702014419
 Transform:
   m_ObjectHideFlags: 0
@@ -1348,7 +1348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &796893287
 Transform:
   m_ObjectHideFlags: 0
@@ -2222,9 +2222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 40
-  deathEffectPrefab: {fileID: 2058417444017610837, guid: c38e1849ae9a46b438e88ceb1b1244bf, type: 3}
-  effectScale: 0.44
-  effectLifetime: 3
 --- !u!114 &1483527125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2922,7 +2919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1795773125
 MeshCollider:
   m_ObjectHideFlags: 0

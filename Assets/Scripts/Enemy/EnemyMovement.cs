@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -19,6 +20,9 @@ public class EnemyMovement : MonoBehaviour
 
     private bool isKnockedBack;
     private float knockbackTimer;
+
+    // Knockback mudinja udane DeathState-ku notify panna
+    public Action OnKnockbackFinished { get; set; }
 
     public float ChaseRange => chaseRange;
 
@@ -56,6 +60,12 @@ public class EnemyMovement : MonoBehaviour
         if (knockbackTimer <= 0f)
         {
             isKnockedBack = false;
+
+            // Knockback complete
+            OnKnockbackFinished?.Invoke();
+
+            // Callback once mattum execute aaganum
+            OnKnockbackFinished = null;
         }
     }
 
@@ -102,6 +112,7 @@ public class EnemyMovement : MonoBehaviour
             rb.linearVelocity.y,
             0f);
 
+        // Player grounded irundha mattum flip
         if (enemy == null ||
             enemy.PlayerJump == null ||
             enemy.PlayerJump.IsGrounded)
@@ -109,6 +120,7 @@ public class EnemyMovement : MonoBehaviour
             Flip(direction);
         }
     }
+
     public void Stop()
     {
         if (isKnockedBack)
@@ -151,7 +163,8 @@ public class EnemyMovement : MonoBehaviour
         }
 
         float direction =
-            Mathf.Sign(targetPosition.x - transform.position.x);
+            Mathf.Sign(
+                targetPosition.x - transform.position.x);
 
         if (direction != 0)
         {
@@ -172,6 +185,7 @@ public class EnemyMovement : MonoBehaviour
 
         knockbackTimer = knockbackDuration;
 
+        // Attacker irukkura side-ku opposite direction
         float direction =
             Mathf.Sign(
                 transform.position.x - attackerPosition.x);

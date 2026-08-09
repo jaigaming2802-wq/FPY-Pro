@@ -4,7 +4,9 @@ public class EnemyHurtState : EnemyState
 {
     private bool animationStarted;
 
-    public EnemyHurtState(Enemy enemy, EnemyStateMachine stateMachine)
+    public EnemyHurtState(
+        Enemy enemy,
+        EnemyStateMachine stateMachine)
         : base(enemy, stateMachine)
     {
     }
@@ -13,17 +15,17 @@ public class EnemyHurtState : EnemyState
     {
         Debug.Log("Enemy Hurt Enter");
 
-        // ❌ Stop() call pannadhe
-        // enemy.EnemyMovement.Stop();
-
         enemy.SetAnimationSpeed(0f);
 
         animationStarted = false;
 
+        // Reset other animation triggers
         enemy.Animator.ResetTrigger("Attack");
         enemy.Animator.ResetTrigger("Hurt");
         enemy.Animator.ResetTrigger("Recovered");
+        enemy.Animator.ResetTrigger("Death");
 
+        // Play Hurt animation
         enemy.Animator.SetTrigger("Hurt");
     }
 
@@ -32,6 +34,7 @@ public class EnemyHurtState : EnemyState
         AnimatorStateInfo state =
             enemy.Animator.GetCurrentAnimatorStateInfo(0);
 
+        // Hurt animation start aayiducha?
         if (state.IsName("hurt"))
         {
             animationStarted = true;
@@ -40,31 +43,41 @@ public class EnemyHurtState : EnemyState
         if (!animationStarted)
             return;
 
+        // Hurt animation complete
         if (state.normalizedTime >= 1f)
         {
             enemy.Animator.SetTrigger("Recovered");
 
+            // Player attack range-la irundha
             if (enemy.IsPlayerInAttackRange())
             {
                 stateMachine.ChangeState(
-                    new EnemyAttackState(enemy, stateMachine));
+                    new EnemyAttackState(
+                        enemy,
+                        stateMachine));
             }
+            // Player chase range-la irundha
             else if (enemy.IsPlayerInChaseRange())
             {
                 stateMachine.ChangeState(
-                    new EnemyChaseState(enemy, stateMachine));
+                    new EnemyChaseState(
+                        enemy,
+                        stateMachine));
             }
+            // Illana patrol
             else
             {
                 stateMachine.ChangeState(
-                    new EnemyPatrolState(enemy, stateMachine));
+                    new EnemyPatrolState(
+                        enemy,
+                        stateMachine));
             }
         }
     }
 
     public override void FixedUpdate()
     {
-        // ❌ Stop() call pannadhe
+        // Normal hurt-la movement stop panna vendam.
     }
 
     public override void Exit()

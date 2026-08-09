@@ -4,7 +4,9 @@ public class EnemyDeathState : EnemyState
 {
     private bool animationStarted;
 
-    public EnemyDeathState(Enemy enemy, EnemyStateMachine stateMachine)
+    public EnemyDeathState(
+        Enemy enemy,
+        EnemyStateMachine stateMachine)
         : base(enemy, stateMachine)
     {
     }
@@ -13,16 +15,20 @@ public class EnemyDeathState : EnemyState
     {
         Debug.Log("Enemy Death Enter");
 
-        enemy.EnemyMovement.Stop();
+        // Knockback already completed before entering DeathState.
+        // So Stop() call panna koodadhu.
 
         enemy.SetAnimationSpeed(0f);
 
         animationStarted = false;
 
+        // Reset other animation triggers
         enemy.Animator.ResetTrigger("Attack");
         enemy.Animator.ResetTrigger("Hurt");
+        enemy.Animator.ResetTrigger("Recovered");
         enemy.Animator.ResetTrigger("Death");
 
+        // Play Death animation
         enemy.Animator.SetTrigger("Death");
     }
 
@@ -31,6 +37,7 @@ public class EnemyDeathState : EnemyState
         AnimatorStateInfo state =
             enemy.Animator.GetCurrentAnimatorStateInfo(0);
 
+        // Death animation start aayiducha?
         if (state.IsName("Death"))
         {
             animationStarted = true;
@@ -39,6 +46,7 @@ public class EnemyDeathState : EnemyState
         if (!animationStarted)
             return;
 
+        // Death animation complete
         if (state.normalizedTime >= 1f)
         {
             Object.Destroy(enemy.gameObject);
@@ -47,7 +55,8 @@ public class EnemyDeathState : EnemyState
 
     public override void FixedUpdate()
     {
-        enemy.EnemyMovement.Stop();
+        // Nothing here.
+        // DeathState-la enemy movement control panna vendam.
     }
 
     public override void Exit()
