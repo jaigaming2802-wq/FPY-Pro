@@ -2005,6 +2005,7 @@ GameObject:
   - component: {fileID: 1483527123}
   - component: {fileID: 1483527124}
   - component: {fileID: 1483527125}
+  - component: {fileID: 1483527126}
   m_Layer: 7
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -2221,7 +2222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcfaca3144914549bd14bc892349522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 40
+  maxHealth: 90
 --- !u!114 &1483527125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,6 +2243,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackDamage: 2
+--- !u!114 &1483527126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483527114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d343faf0b97554482587d745fe8c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHitFlash
+  flashDuration: 0.3
+  flashIntensity: 2
 --- !u!1 &1501563709
 GameObject:
   m_ObjectHideFlags: 0
@@ -3008,8 +3023,8 @@ Transform:
   m_GameObject: {fileID: 1795773124}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.85, y: 0, z: -1.2566}
-  m_LocalScale: {x: 2.5742376, y: 1, z: 2.87702}
+  m_LocalPosition: {x: 1.6973, y: -0, z: -4.0154}
+  m_LocalScale: {x: 2.064796, y: 1, z: 1.1641704}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

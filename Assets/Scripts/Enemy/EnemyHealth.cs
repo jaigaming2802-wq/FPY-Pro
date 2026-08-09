@@ -30,21 +30,55 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth -= damage;
 
+        currentHealth = Mathf.Clamp(
+            currentHealth,
+            0,
+            maxHealth);
+
         Debug.Log("Enemy Health : " + currentHealth);
+
+
+        // =========================================
+        // HIT FLASH
+        // =========================================
+
+        // Play the additional manual white flash
+        // whenever the enemy gets hit.
+        //
+        // This is separate from the existing
+        // white flash inside the Hurt animation.
+        if (enemy.EnemyHitFlash != null)
+        {
+            enemy.EnemyHitFlash.PlayHitFlash();
+        }
+
 
         // =========================
         // LAST HIT
         // =========================
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
             isDead = true;
 
-            // LAST HIT-LA MATTUM KNOCKBACK
-            enemy.EnemyMovement.ApplyKnockback(attackerPosition);
 
-            // Knockback COMPLETE aana piragu
-            // Death State-ku pogum
+            // =========================================
+            // LAST HIT KNOCKBACK
+            // =========================================
+
+            // Knockback happens only on the
+            // final hit that kills the enemy.
+            enemy.EnemyMovement.ApplyKnockback(
+                attackerPosition);
+
+
+            // =========================================
+            // DEATH AFTER KNOCKBACK
+            // =========================================
+
+            // Wait until knockback is completely finished.
+            // Then play Death animation.
             enemy.EnemyMovement.OnKnockbackFinished = () =>
             {
                 enemy.StateMachine.ChangeState(
@@ -53,20 +87,27 @@ public class EnemyHealth : MonoBehaviour
                         enemy.StateMachine));
             };
 
+
             return;
         }
+
 
         // =========================
         // NORMAL HIT
         // =========================
+
         // IMPORTANT:
-        // Inga ApplyKnockback() KIDAIYADHU.
+        // Normal hits DO NOT apply knockback.
+        //
+        // Only the white hit flash + Hurt animation
+        // will happen.
 
         enemy.StateMachine.ChangeState(
             new EnemyHurtState(
                 enemy,
                 enemy.StateMachine));
     }
+
 
     public void Heal(int amount)
     {

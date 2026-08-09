@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,13 +6,31 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
 
 
+    // ============================================
+    // KNOCKBACK SETTINGS
+    // ============================================
+
     [Header("Knockback")]
+
+    // Horizontal force used to push the player
+    // away from the attacker.
     [SerializeField] private float knockbackForce = 3f;
+
+    // Upward force applied during knockback.
     [SerializeField] private float knockbackHeight = 1.5f;
+
+    // Duration of the knockback effect.
     [SerializeField] private float knockbackDuration = 0.15f;
 
 
+    // ============================================
+    // KNOCKBACK STATE
+    // ============================================
+
+    // True while the player is being knocked back.
     private bool isKnockedBack;
+
+    // Timer used to control knockback duration.
     private float knockbackTimer;
 
 
@@ -41,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
 
     public PlayerAttack PlayerAttack { get; private set; }
 
-
     public bool Attack1Pressed { get; private set; }
     public bool Attack2Pressed { get; private set; }
 
@@ -55,9 +71,11 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsMoving =>
         Mathf.Abs(MoveInput.x) > 0.1f;
+
     public bool IsInLedgeTrigger { get; set; }
 
     public bool LockJumpFallCamera { get; set; }
+
 
     private void Awake()
     {
@@ -90,7 +108,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
     private void OnEnable()
     {
         inputActions.Enable();
@@ -101,7 +118,6 @@ public class PlayerMovement : MonoBehaviour
     {
         inputActions.Disable();
     }
-
 
 
     private void Update()
@@ -126,7 +142,6 @@ public class PlayerMovement : MonoBehaviour
         MoveInput = input;
 
 
-
         JumpPressed =
             inputActions.Player.Jump
             .WasPressedThisFrame();
@@ -137,11 +152,9 @@ public class PlayerMovement : MonoBehaviour
             .WasReleasedThisFrame();
 
 
-
         DashPressed =
             inputActions.Player.Dash
             .WasPressedThisFrame();
-
 
 
         Attack1Pressed =
@@ -154,7 +167,6 @@ public class PlayerMovement : MonoBehaviour
             .WasPressedThisFrame();
 
 
-
         BlockPressed =
             inputActions.Player.Block
             .WasPressedThisFrame();
@@ -165,27 +177,23 @@ public class PlayerMovement : MonoBehaviour
             .IsPressed();
 
 
-
         stateMachine.Update();
     }
 
 
-
     private void FixedUpdate()
     {
-        HandleKnockback();
-
+        // Knockback system is currently disabled.
+        // HandleKnockback();
 
         stateMachine.FixedUpdate();
     }
 
 
-
     public void Move()
     {
-        if (isKnockedBack)
-            return;
-
+        // Normal movement is allowed because
+        // knockback is currently disabled.
 
         rb.linearVelocity = new Vector3(
             MoveInput.x * moveSpeed,
@@ -197,7 +205,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
     public void Stop()
     {
         rb.linearVelocity = new Vector3(
@@ -207,61 +214,91 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
     private void Flip()
     {
         if (MoveInput.x > 0)
             spriteRenderer.flipX = false;
-
 
         else if (MoveInput.x < 0)
             spriteRenderer.flipX = true;
     }
 
 
+    // ============================================
+    // APPLY KNOCKBACK
+    // ============================================
 
+    // Knockback method kept for future implementation.
+    // It is currently not called from PlayerHealth.
     public void ApplyKnockback(Vector3 attackerPosition)
     {
+        // Enable knockback state.
         isKnockedBack = true;
 
+
+        // Start knockback timer.
         knockbackTimer = knockbackDuration;
 
+
+        // Calculate direction away from attacker.
         float direction =
             Mathf.Sign(
                 transform.position.x -
                 attackerPosition.x);
 
+
+        // Apply horizontal and upward knockback force.
         rb.linearVelocity = new Vector3(
             direction * knockbackForce,
             knockbackHeight,
             0f);
     }
+
+
+    // ============================================
+    // HANDLE KNOCKBACK
+    // ============================================
+
+    // Knockback timer logic kept for future use.
     private void HandleKnockback()
     {
+        // Do nothing if player is not being knocked back.
         if (!isKnockedBack)
             return;
 
+
+        // Reduce knockback timer.
         knockbackTimer -= Time.fixedDeltaTime;
 
+
+        // Knockback duration completed.
         if (knockbackTimer <= 0f)
         {
+            // Allow normal movement again.
             isKnockedBack = false;
         }
     }
+
+
     public void SetAnimationSpeed(float speed)
     {
         anim.SetFloat(
             "Speed",
             speed);
     }
+
+
     public void PlayJumpAnimation()
     {
         anim.SetTrigger("Jump");
     }
+
+
     public void PlayDashAnimation()
     {
-
     }
+
+
     public float GetVerticalVelocity()
     {
         return rb.linearVelocity.y;

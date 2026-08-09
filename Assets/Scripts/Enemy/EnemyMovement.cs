@@ -29,6 +29,7 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody rb;
     private SpriteRenderer sprite;
     private Enemy enemy;
+    public EnemyHitFlash EnemyHitFlash { get; private set; }
 
     private float currentSpeed;
 
@@ -41,7 +42,8 @@ public class EnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         sprite = GetComponent<SpriteRenderer>();
         enemy = GetComponent<Enemy>();
-
+        EnemyHitFlash =
+    GetComponentInChildren<EnemyHitFlash>();
         currentSpeed = patrolSpeed;
 
         if (attackPoint != null)

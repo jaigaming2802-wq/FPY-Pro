@@ -29,11 +29,14 @@ public class Enemy : MonoBehaviour
 
     public EnemyStateMachine StateMachine { get; private set; }
 
+    public EnemyHitFlash EnemyHitFlash { get; private set; }
+
     private void Awake()
     {
         EnemyMovement = GetComponent<EnemyMovement>();
         EnemyAttack = GetComponent<EnemyAttack>();
         Animator = GetComponent<Animator>();
+        EnemyHitFlash = GetComponentInChildren<EnemyHitFlash>();
 
         if (player != null)
         {
