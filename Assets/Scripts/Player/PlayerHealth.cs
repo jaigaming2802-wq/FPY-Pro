@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private Image healthBar;
 
     [Header("Block")]
     // Damage percentage received while blocking.
@@ -26,6 +28,12 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
 
         player = GetComponent<PlayerMovement>();
+
+        // Start with full health.
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = 1f;
+        }
     }
 
 
@@ -70,6 +78,10 @@ public class PlayerHealth : MonoBehaviour
                 maxHealth);
 
 
+            // Update Health Bar.
+            UpdateHealthBar();
+
+
             Debug.Log(
                 "Blocked! Chip Damage : " +
                 chipDamage);
@@ -110,6 +122,10 @@ public class PlayerHealth : MonoBehaviour
             currentHealth,
             0,
             maxHealth);
+
+
+        // Update Health Bar.
+        UpdateHealthBar();
 
 
         Debug.Log(
@@ -157,6 +173,20 @@ public class PlayerHealth : MonoBehaviour
             new HurtState(
                 player,
                 player.StateMachine));
+    }
+
+
+    // =========================================
+    // HEALTH BAR
+    // =========================================
+
+    private void UpdateHealthBar()
+    {
+        if (healthBar == null)
+            return;
+
+        healthBar.fillAmount =
+            (float)currentHealth / maxHealth;
     }
 
 
