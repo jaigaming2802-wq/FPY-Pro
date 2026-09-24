@@ -23,11 +23,8 @@ public class EnemyHealth : MonoBehaviour
 
         // Find CameraShake in the scene
         cameraShake = FindFirstObjectByType<CameraShake>();
-    }
 
-
-    private void Start()
-    {
+        // Start ku munnadiye health set aaganum
         currentHealth = maxHealth;
     }
 
@@ -62,8 +59,6 @@ public class EnemyHealth : MonoBehaviour
         // HIT FLASH
         // =========================================
 
-        // Play additional manual white flash
-        // whenever the enemy gets hit.
         if (enemy.EnemyHitFlash != null)
         {
             enemy.EnemyHitFlash.PlayHitFlash();
@@ -74,8 +69,6 @@ public class EnemyHealth : MonoBehaviour
         // CAMERA SHAKE
         // =========================================
 
-        // Small camera shake whenever
-        // the enemy gets hit.
         if (cameraShake != null)
         {
             cameraShake.EnemyHit();
@@ -93,22 +86,12 @@ public class EnemyHealth : MonoBehaviour
             isDead = true;
 
 
-            // =========================================
-            // LAST HIT KNOCKBACK
-            // =========================================
-
-            // Knockback happens only on
-            // the final hit.
+            // Knockback happens only on the final hit.
             enemy.EnemyMovement.ApplyKnockback(
                 attackerPosition);
 
 
-            // =========================================
-            // DEATH AFTER KNOCKBACK
-            // =========================================
-
-            // Wait until knockback is completely
-            // finished before playing Death animation.
+            // Knockback mudinja apram Death state
             enemy.EnemyMovement.OnKnockbackFinished =
                 () =>
                 {
@@ -126,14 +109,6 @@ public class EnemyHealth : MonoBehaviour
         // =========================================
         // NORMAL HIT
         // =========================================
-
-        // Normal hits do NOT apply knockback.
-        //
-        // Only:
-        // 1. Hit Flash
-        // 2. Camera Shake
-        // 3. Hurt Animation
-        // will happen.
 
         enemy.StateMachine.ChangeState(
             new EnemyHurtState(
@@ -161,5 +136,16 @@ public class EnemyHealth : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+    }
+
+
+    // =========================================
+    // RESET (Enemy respawn aagum bodhu)
+    // =========================================
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        isDead = false;
     }
 }

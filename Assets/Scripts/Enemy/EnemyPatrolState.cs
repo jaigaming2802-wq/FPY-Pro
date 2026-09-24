@@ -4,11 +4,13 @@ public class EnemyPatrolState : EnemyState
 {
     private Transform target;
 
-    public EnemyPatrolState(Enemy enemy, EnemyStateMachine stateMachine)
+    public EnemyPatrolState(
+        Enemy enemy,
+        EnemyStateMachine stateMachine)
         : base(enemy, stateMachine)
     {
-
     }
+
 
     public override void Enter()
     {
@@ -21,27 +23,36 @@ public class EnemyPatrolState : EnemyState
         enemy.SetAnimationSpeed(1f);
     }
 
+
     public override void Update()
     {
-        // Player entered Chase Range
         if (enemy.IsPlayerInChaseRange())
         {
             stateMachine.ChangeState(
-                new EnemyNoticeState(enemy, stateMachine));
+                new EnemyNoticeState(
+                    enemy,
+                    stateMachine));
 
             return;
         }
 
-        float distance = Mathf.Abs(
-            enemy.transform.position.x - target.position.x);
+        if (target == null)
+            return;
+
+        float distance =
+            Mathf.Abs(
+                enemy.transform.position.x -
+                target.position.x);
 
         if (distance <= enemy.reachDistance)
         {
-            enemy.MoveToPointA = !enemy.MoveToPointA;
+            enemy.MoveToPointA =
+                !enemy.MoveToPointA;
 
             UpdateTarget();
         }
     }
+
 
     private void UpdateTarget()
     {
@@ -50,13 +61,16 @@ public class EnemyPatrolState : EnemyState
             : enemy.pointB;
     }
 
+
     public override void FixedUpdate()
     {
         if (target != null)
         {
-            enemy.EnemyMovement.Move(target.position);
+            enemy.EnemyMovement.Move(
+                target.position);
         }
     }
+
 
     public override void Exit()
     {

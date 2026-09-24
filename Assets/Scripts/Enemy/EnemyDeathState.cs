@@ -3,8 +3,11 @@ using UnityEngine;
 public class EnemyDeathState : EnemyState
 {
     private bool animationStarted;
+    private bool finished;
 
-    public EnemyDeathState(Enemy enemy, EnemyStateMachine stateMachine)
+    public EnemyDeathState(
+        Enemy enemy,
+        EnemyStateMachine stateMachine)
         : base(enemy, stateMachine)
     {
     }
@@ -18,6 +21,7 @@ public class EnemyDeathState : EnemyState
         enemy.SetAnimationSpeed(0f);
 
         animationStarted = false;
+        finished = false;
 
         enemy.Animator.ResetTrigger("Attack");
         enemy.Animator.ResetTrigger("Hurt");
@@ -28,6 +32,9 @@ public class EnemyDeathState : EnemyState
 
     public override void Update()
     {
+        if (finished)
+            return;
+
         AnimatorStateInfo state =
             enemy.Animator.GetCurrentAnimatorStateInfo(0);
 
@@ -41,7 +48,17 @@ public class EnemyDeathState : EnemyState
 
         if (state.normalizedTime >= 1f)
         {
-            Object.Destroy(enemy.gameObject);
+            finished = true;
+
+            if (EnemyManager.Instance != null)
+            {
+                // Enemy + pointA + pointB moonum inactive
+                EnemyManager.Instance.OnEnemyDied(enemy);
+            }
+            else
+            {
+                enemy.gameObject.SetActive(false);
+            }
         }
     }
 

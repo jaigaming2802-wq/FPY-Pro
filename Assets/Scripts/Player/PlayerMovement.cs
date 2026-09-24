@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Animator anim;
 
+    
+
 
     private PlayerStateMachine stateMachine;
     public PlayerStateMachine StateMachine => stateMachine;

@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class DeathState : PlayerState
 {
-    private bool animationStarted;
+    [SerializeField] private float respawnDelay = 0.8f;
 
+    private bool animationStarted;
+    private bool respawned;
+    private float respawnTimer;
 
     public DeathState(
         PlayerMovement player,
@@ -12,58 +15,81 @@ public class DeathState : PlayerState
     {
     }
 
-
     public override void Enter()
     {
-        // Player has died, so stop normal movement.
         player.Stop();
-
-
-        // Stop movement animation.
         player.SetAnimationSpeed(0f);
 
-
         animationStarted = false;
+        respawned = false;
+        respawnTimer = 0f;
 
-
-        // Play Death animation.
+        player.anim.ResetTrigger("Death");
         player.anim.SetTrigger("Death");
     }
-
 
     public override void Update()
     {
         AnimatorStateInfo state =
             player.anim.GetCurrentAnimatorStateInfo(0);
 
-
-        // Check whether Death animation has started.
         if (state.IsName("Death"))
         {
             animationStarted = true;
         }
 
-
-        // Wait until Death animation is completed.
         if (animationStarted &&
             state.IsName("Death") &&
-            state.normalizedTime >= 1f)
+            state.normalizedTime >= 1f &&
+            !respawned)
         {
-            // Destroy player after Death animation.
-            Object.Destroy(player.gameObject);
+            respawnTimer += Time.deltaTime;
+
+            if (respawnTimer >= respawnDelay)
+            {
+                respawned = true;
+
+                Respawn();
+            }
         }
     }
 
+    private void Respawn()
+    {
+        Vector3 respawnPosition =
+            CheckpointManager.Instance.GetCheckpointPosition();
+
+        Quaternion respawnRotation =
+            CheckpointManager.Instance.GetCheckpointRotation();
+
+        player.transform.position = respawnPosition;
+        player.transform.rotation = respawnRotation;
+
+        PlayerHealth health =
+            player.GetComponent<PlayerHealth>();
+
+        if (health != null)
+        {
+            health.ResetHealth();
+        }
+
+        player.anim.ResetTrigger("Death");
+        player.anim.Play("Idle", 0, 0f);
+
+        EnemyManager.Instance.ResetAllEnemies();
+
+        player.StateMachine.ChangeState(
+            new IdleState(
+                player,
+                player.StateMachine));
+    }
 
     public override void FixedUpdate()
     {
-        // Keep player stopped while Death animation plays.
         player.Stop();
     }
 
-
     public override void Exit()
     {
-        // Nothing required when leaving Death State.
     }
 }
