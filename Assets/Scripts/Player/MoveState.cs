@@ -69,6 +69,8 @@ public class MoveState : PlayerState
 
     public override void FixedUpdate()
     {
+        Debug.Log("MOVE STATE FIXED");
+
         if (player.PlayerDash.IsDashing)
             return;
 

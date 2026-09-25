@@ -37,26 +37,16 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        EnemyMovement = GetComponent<EnemyMovement>();
-        EnemyAttack = GetComponent<EnemyAttack>();
-        Animator = GetComponent<Animator>();
-        EnemyHitFlash = GetComponent<EnemyHitFlash>();
-        EnemyHealth = GetComponent<EnemyHealth>();
-        rb = GetComponent<Rigidbody>();
-
-        if (player != null)
-        {
-            PlayerJump = player.GetComponent<PlayerJump>();
-        }
-
-        StateMachine = new EnemyStateMachine();
+        CacheComponents();
+        InitializeStateMachine();
     }
 
 
     private void Start()
     {
-        // Game start la mattum run aagum
         MoveToPointA = false;
+
+        InitializeStateMachine();
 
         StateMachine.Initialize(
             new EnemyPatrolState(
@@ -67,52 +57,82 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (StateMachine == null)
+            return;
+
         StateMachine.Update();
     }
 
 
     private void FixedUpdate()
     {
+        if (StateMachine == null)
+            return;
+
         StateMachine.FixedUpdate();
     }
 
 
-    // =========================================
-    // RESET (EnemyManager call pannum)
-    // =========================================
-
-    public void ResetEnemy(Vector3 position, Quaternion rotation)
+    private void CacheComponents()
     {
-        // Position reset
-        transform.SetPositionAndRotation(position, rotation);
+        EnemyMovement = GetComponent<EnemyMovement>();
+        EnemyAttack = GetComponent<EnemyAttack>();
+        Animator = GetComponent<Animator>();
+        EnemyHitFlash = GetComponent<EnemyHitFlash>();
+        EnemyHealth = GetComponent<EnemyHealth>();
+        rb = GetComponent<Rigidbody>();
 
-        // Velocity reset
+        if (player != null)
+        {
+            PlayerJump =
+                player.GetComponent<PlayerJump>();
+        }
+    }
+
+
+    private void InitializeStateMachine()
+    {
+        if (StateMachine == null)
+        {
+            StateMachine =
+                new EnemyStateMachine();
+        }
+    }
+
+
+    public void ResetEnemy(
+        Vector3 position,
+        Quaternion rotation)
+    {
+        CacheComponents();
+        InitializeStateMachine();
+
+        transform.SetPositionAndRotation(
+            position,
+            rotation);
+
         if (rb != null && !rb.isKinematic)
         {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
 
-        // Health + isDead reset
         if (EnemyHealth != null)
         {
             EnemyHealth.ResetHealth();
         }
 
-        // Old knockback callback irundha remove
         if (EnemyMovement != null)
         {
             EnemyMovement.OnKnockbackFinished = null;
         }
 
-        // Animator marubadi first state ku
         if (Animator != null)
         {
             Animator.Rebind();
             Animator.Update(0f);
         }
 
-        // Patrol state la marubadi start
         MoveToPointA = false;
 
         StateMachine.Initialize(
@@ -128,7 +148,8 @@ public class Enemy : MonoBehaviour
 
         if (player != null)
         {
-            PlayerJump = player.GetComponent<PlayerJump>();
+            PlayerJump =
+                player.GetComponent<PlayerJump>();
         }
     }
 
@@ -146,21 +167,30 @@ public class Enemy : MonoBehaviour
     {
         if (Animator != null)
         {
-            Animator.SetFloat("Speed", speed);
+            Animator.SetFloat(
+                "Speed",
+                speed);
         }
     }
 
 
     public bool IsPlayerInChaseRange()
     {
-        if (Player == null || EnemyMovement == null)
+        if (Player == null ||
+            EnemyMovement == null)
+        {
             return false;
+        }
 
         float xDistance =
-            Mathf.Abs(transform.position.x - Player.position.x);
+            Mathf.Abs(
+                transform.position.x -
+                Player.position.x);
 
         float yDistance =
-            Mathf.Abs(transform.position.y - Player.position.y);
+            Mathf.Abs(
+                transform.position.y -
+                Player.position.y);
 
         return xDistance <= EnemyMovement.ChaseRange &&
                yDistance <= maxHeightDifference;
@@ -169,8 +199,11 @@ public class Enemy : MonoBehaviour
 
     public bool IsPlayerInAttackRange()
     {
-        if (EnemyAttack == null || Player == null)
+        if (EnemyAttack == null ||
+            Player == null)
+        {
             return false;
+        }
 
         return EnemyAttack.PlayerInAttackRange(Player);
     }
